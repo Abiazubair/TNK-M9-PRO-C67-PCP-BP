@@ -16,13 +16,13 @@ yoloNetwork = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
 
 # Read the input video file instead of an image
 image = cv2.imread("car.png")
-
+video = cv2.VideoCapture("car.mp4")
 # Define infinite while loop
-
+while True:
 # Read the first frame of the video which returns two value check, image
-
+check, image = video.read()
 #Run the code only if the video frame is read successfully i.e value of check is True
-
+if check:
 image = cv2.resize(image, (0, 0), fx=1, fy=1)
 dimensions = image.shape[:2]
 H, W = dimensions
@@ -59,6 +59,8 @@ indexes = cv2.dnn.NMSBoxes(
 for i in range(len(boxes)):
     if i in indexes:
         # Write condition to detect the car in the image
+if labels[classIds[i]] == "car":
+
 
         x, y, w, h = boxes[i]
         color = (255, 0, 0)
@@ -67,6 +69,7 @@ for i in range(len(boxes)):
 
 cv2.imshow('Moving Car', image)
 # Change waitKey to 1
-cv2.waitKey(0)
+cv2.waitKey(1)
 
 # Quit the display window when the spacebar key is pressed
+key = cv2.waitKey(1)
